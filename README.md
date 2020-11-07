@@ -39,7 +39,7 @@ python main.py
 - 点击按钮后, 键盘事件会失去监听，需要再次点击游戏界面才可以恢复（希望大佬们可以提供解决方案）
 
 
-#### 下面是代码运行的效果(如果加载不出来， 下面可能没有内容)
+#### 下面是代码运行的效果(如果gif加载不出来， 下面可能没有内容)
 
 
 ![](https://raw.githubusercontent.com/karboboy/PyQt5-Tetris/main/example.gif)
