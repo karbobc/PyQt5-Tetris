@@ -1,0 +1,102 @@
+QPushButton {
+    background: none;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+    width: 30px;
+    height: 30px;
+}
+
+QPushButton#closeButton {
+    border-image: url('./icons/close.png');
+}
+
+QPushButton#closeButton:hover {
+    border-image: url('./icons/close.png');
+    margin: 2px;
+}
+
+QPushButton#minimizeButton {
+    border-image: url('./icons/minimize.png');
+}
+
+QPushButton#minimizeButton:hover {
+    border-image: url('./icons/minimize.png');
+    margin: 2px;
+}
+
+QPushButton#startButton {
+    width: 200px;
+    height: 100px;
+    border-image: url('./icons/start_game.png');
+}
+
+QPushButton#startButton:hover {
+    border-image: url('./icons/start_game.png');
+    margin: 2px;
+}
+
+QPushButton#muteButton {
+    border-image: url('./icons/mute.png');
+}
+
+QPushButton#muteButton:hover {
+    border-image: url('./icons/cancel_mute.png');
+    margin: 2px;
+}
+
+QPushButton#cancelMuteButton {
+    border-image: url('./icons/cancel_mute.png');
+}
+
+QPushButton#cancelMuteButton:hover {
+    border-image: url('./icons/mute.png');
+    margin: 2px;
+}
+
+QPushButton#nextMusicButton {
+    border-image: url('./icons/next.png');
+}
+
+QPushButton#nextMusicButton:hover {
+    border-image: url('./icons/next.png');
+    margin: 2px;
+}
+
+QPushButton#previousMusicButton {
+    border-image: url('./icons/previous.png');
+}
+
+QPushButton#previousMusicButton:hover {
+    border-image: url('./icons/previous.png');
+    margin: 2px;
+}
+
+QPushButton#pauseButton {
+    border-image: url('./icons/pause.png');
+}
+
+QPushButton#pauseButton:hover {
+    border-image: url('./icons/pause.png');
+    margin: 2px;
+}
+
+QPushButton#resumeButton {
+    border-image: url('./icons/resume.png');
+}
+
+QPushButton#resumeButton:hover {
+    border-image: url('./icons/resume.png');
+    margin: 2px;
+}
+
+QPushButton#restartButton {
+    width: 200px;
+    height: 100px;
+    border-image: url('./icons/restart.png');
+}
+
+QPushButton#restartButton:hover {
+    border-image: url('./icons/restart.png');
+    margin: 4px;
+}
