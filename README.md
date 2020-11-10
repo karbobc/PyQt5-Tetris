@@ -47,4 +47,4 @@ python main.py
 #### 下面是代码运行的效果(如果gif加载不出来， 下面可能没有内容)
 
 
-![example](https://github.com/karboboy/PyQt5-Tetris/blob/main/example.gif)
+![example](https://i.loli.net/2020/11/10/XF6tMQGmdO8EjIk.gif)
