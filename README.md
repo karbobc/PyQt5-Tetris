@@ -47,4 +47,4 @@ python main.py
 #### 下面是代码运行的效果(如果gif加载不出来， 下面可能没有内容)
 
 
-![example](C:%5CUsers%5CLUO%5CDesktop%5Cexample.gif)
+![example](https://github.com/karboboy/PyQt5-Tetris/blob/main/example.gif)
