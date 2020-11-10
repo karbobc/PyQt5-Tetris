@@ -1,7 +1,3 @@
----
-typora-copy-images-to: upload
-
----
 
 ## PyQt5-Tetris
 
