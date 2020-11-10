@@ -1,10 +1,16 @@
+---
+typora-copy-images-to: upload
+
+---
 
 ## PyQt5-Tetris
+
 ### PyQt5俄罗斯方块，PyQt5-Tetris，基于PyQt5写的一个小游戏
 
 <br>
 
 #### 源码依赖
+
 - windows操作系统
 
 - 安装python3以及pip
@@ -22,6 +28,7 @@ pip install PyQt5
 
 
 #### 使用方法
+
 1、 直接运行main.py文件
 
 2、 终端打开进入到相应目录下执行
@@ -31,15 +38,17 @@ python main.py
 ```
 
 #### 缺点
+
 - 不能拖拽游戏窗口
 - 需要手动添加想听的音乐
 - 界面做得不够好看（不会使用Qt Designer QWQ）
 
 #### 已知BUG
+
 - 点击按钮后, 键盘事件会失去监听，需要再次点击游戏界面才可以恢复（希望大佬们可以提供解决方案）
 
 
 #### 下面是代码运行的效果(如果gif加载不出来， 下面可能没有内容)
 
 
-![](https://raw.githubusercontent.com/karboboy/PyQt5-Tetris/main/example.gif)
+![example](C:%5CUsers%5CLUO%5CDesktop%5Cexample.gif)
