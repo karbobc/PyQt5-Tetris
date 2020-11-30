@@ -2,14 +2,12 @@
 ...@coding: UTF-8
 ...@version: python 3.8x
 ...@version: main.py
-...@author: Luo
+...@author: Karbob
 ...@date: 2020-11-04
 """
 
 # todo
-# 为按钮增加阴影
 # 按钮的事件和按键的事件冲突
-# 消除方块时的音效
 
 import sys
 from Qt.MainWindow import MainWindow
