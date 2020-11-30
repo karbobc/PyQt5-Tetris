@@ -2,7 +2,7 @@
 ...@coding: UTF-8
 ...@version: python 3.8x
 ...@version: Tetris.py
-...@author: Luo
+...@author: Karbob
 ...@date: 2020-11-04
 """
 
