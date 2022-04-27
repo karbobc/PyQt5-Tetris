@@ -3,50 +3,50 @@
 
 ### PyQt5俄罗斯方块，PyQt5-Tetris，基于PyQt5写的一个小游戏
 
-<br>
-
-#### 开发环境
+####  💻 开发环境
 
 - Windows 10
 
 - Python 3.8.2
 
-#### 安装依赖
+#### 📦 安装依赖
 
-```
+```shell
 pip install PyQt5
 ```
 
-#### 功能
+#### 📝 功能
 
-- 可以播放音乐, 把MP3文件放入BackgroundMusic即可 -> 边玩游戏边听歌是一种享受
-- 实现了俄罗斯方块的基本功能, 可以暂停游戏 -> 急事, 游戏玩得正兴, 不怕有暂停功能
-- 增加了游戏消除方块的音效 -> 增加玩游戏的快感
-- 游戏结束可以重新开始 -> 游戏玩得不够尽兴, 游戏结束可以重新开始
+- 🎵 播放音乐
+- ⏸︎ 暂停游戏
+- 🎸 消除方块的音效
+
+#### ✅ Todo
+
+- 📄 游戏存档
+- 🖱️ 窗口拖拽
 
 
-#### 使用方法
+#### ⌨️ 使用方法
 
-1、 直接运行main.py文件
+1、 直接运行`main.py`文件
 
-2、 终端打开进入到相应目录下执行
+2、打开终端，进入到项目目录下执行
 
 ```
 python main.py
 ```
 
-#### 缺点
-
-- 不能拖拽游戏窗口
-- 需要手动添加想听的音乐
-- 界面做得不够好看（不会使用Qt Designer QWQ）
-
-#### 已知BUG
+#### ❗ 已知BUG
 
 - 点击按钮后, 键盘事件会失去监听，需要再次点击游戏界面才可以恢复（希望大佬们可以提供解决方案）
 
+#### 🖼️ 页面展示
 
-#### 下面是代码运行的效果(如果gif加载不出来， 下面可能没有内容)
+![image-20220427143916101](https://karbob-bucket.oss-cn-hangzhou.aliyuncs.com/markdown/image-20220427143916101.png)
 
+![image-20220427144006320](https://karbob-bucket.oss-cn-hangzhou.aliyuncs.com/markdown/image-20220427144006320.png)
 
-![example](https://i.loli.net/2020/11/10/XF6tMQGmdO8EjIk.gif)
+#### 📜 许可证
+
+PyQt5-Tetris使用 [GPL-v3.0](https://opensource.org/licenses/GPL-3.0) 协议开源，请遵守开源协议。
