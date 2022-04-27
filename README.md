@@ -5,11 +5,13 @@
 
 <br>
 
-#### 源码依赖
+#### 开发环境
 
-- windows操作系统
+- Windows 10
 
-- 安装python3以及pip
+- Python 3.8.2
+
+#### 安装依赖
 
 ```
 pip install PyQt5
