@@ -31,7 +31,7 @@ class MainWindow(QWidget):
 
     button_size = 30 + 5
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None) -> None:
         super(MainWindow, self).__init__(parent)
 
         self.player = Player(self)
@@ -104,14 +104,14 @@ class MainWindow(QWidget):
         self.btn_next_music.setObjectName("nextMusicButton")
         self.btn_next_music.setToolTip("下一首")        # 悬停在按钮上的提示->下一首
         self.btn_next_music.move(self.screen_width - 4 * self.button_size, 5)  # 按钮的位置
-        self.btn_next_music.clicked.connect(self.player.nextMusic)
+        self.btn_next_music.clicked.connect(self.player.next_music)
 
         # 上一首音乐按钮
         self.btn_previous_music = QPushButton(self)
         self.btn_previous_music.setObjectName("previousMusicButton")
         self.btn_previous_music.setToolTip("上一首")        # 悬停在按钮上的提示->上一首
         self.btn_previous_music.move(self.screen_width - 5 * self.button_size, 5)    # 按钮的位置
-        self.btn_previous_music.clicked.connect(self.player.previousMusic)
+        self.btn_previous_music.clicked.connect(self.player.previous_music)
 
     def set_timer(self) -> None:
         """设置Timer, 每隔500ms检测游戏是否结束"""
@@ -122,13 +122,13 @@ class MainWindow(QWidget):
 
     def game_over(self) -> None:
         """判断游戏是否结束"""
-        if self.game.isGameOver is True:
+        if self.game.is_game_over is True:
             self.background.show()
             self.btn_start.show()
             self.timer.disconnect()
-            self.game.isGameStart = False
-            self.game.restartButton.hide()
-            self.game.gameOverImage.hide()
+            self.game.is_game_start = False
+            self.game.btn_restart.hide()
+            self.game.game_over_image.hide()
 
     def slot_clicked_start(self) -> None:
         """点击开始游戏按钮的信号槽"""
@@ -139,7 +139,7 @@ class MainWindow(QWidget):
 
     def slot_clicked_mute(self) -> None:
         """点击静音按钮的信号槽"""
-        self.player.cancelMute()
+        self.player.cancel_mute()
         self.btn_cancel_mute.show()
         self.btn_mute.hide()
 
