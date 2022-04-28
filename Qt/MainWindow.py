@@ -9,8 +9,8 @@ from Qt.Player import Player
 from Qt.Tetris import Tetris
 from Qt.Base import Button, Label
 from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtCore import Qt, QTimer, QPoint
+from PyQt5.QtGui import QPixmap, QIcon, QMouseEvent
 
 
 class MainWindow(QWidget):
@@ -18,8 +18,10 @@ class MainWindow(QWidget):
     screen_width: int           # 窗口的宽度
     screen_height: int          # 窗口的高度
     pixmap: QPixmap             # 临时存储图片路径
-    background: Label          # 开始时的背景图片
+    background: Label           # 开始时的背景图片
     timer: QTimer               # 定时器
+    is_mouse_press: bool        # 鼠标是否按下
+    mouse_point: QPoint         # 鼠标相对窗口的位置
 
     # 按钮
     btn_close: Button            # 关闭窗口按钮
@@ -32,8 +34,8 @@ class MainWindow(QWidget):
 
     button_size = 30 + 5
 
-    def __init__(self, parent=None) -> None:
-        super(MainWindow, self).__init__(parent)
+    def __init__(self, *args, **kwargs) -> None:
+        super(MainWindow, self).__init__(*args, **kwargs)
 
         self.player = Player(self)
         self.game = Tetris(self)
@@ -149,3 +151,18 @@ class MainWindow(QWidget):
         self.player.mute()
         self.btn_cancel_mute.hide()
         self.btn_mute.show()
+
+    def mousePressEvent(self, event: QMouseEvent) -> None:
+        """鼠标按下事件"""
+        self.is_mouse_press = True
+        self.mouse_press_point = event.globalPos() - self.pos()
+
+    def mouseMoveEvent(self, event: QMouseEvent) -> None:
+        """鼠标移动事件"""
+        if self.is_mouse_press:
+            # 相当于原来的位置 + (鼠标移动位置 - 鼠标按下位置)
+            self.move(event.globalPos() - self.mouse_press_point)
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> None:
+        """鼠标释放事件"""
+        self.is_mouse_press = False

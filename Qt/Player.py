@@ -19,8 +19,8 @@ class Player(QMediaPlayer):
     music_source_list: List[str]        # 音频路径列表
     MUSIC_DIR = "./BackgroundMusic"     # 存放音乐文件夹
 
-    def __init__(self, parent=None) -> None:
-        super(Player, self).__init__(parent)
+    def __init__(self, *args, **kwargs) -> None:
+        super(Player, self).__init__(*args, **kwargs)
 
         self.get_music_source()
         self.init_player()

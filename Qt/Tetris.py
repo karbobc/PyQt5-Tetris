@@ -33,10 +33,10 @@ class Tetris(QWidget):
     is_game_start: bool                         # 游戏是否开始
     is_game_over: bool                          # 游戏是否结束
     is_pause: bool                              # 游戏是否暂停
-    btn_pause: Button                      # 暂停游戏按钮
-    btn_resume: Button                     # 继续游戏按钮
-    btn_restart: Button                    # 重新开始游戏按钮
-    game_over_image: Label                     # 游戏结束时显示的图片
+    btn_pause: Button                           # 暂停游戏按钮
+    btn_resume: Button                          # 继续游戏按钮
+    btn_restart: Button                         # 重新开始游戏按钮
+    game_over_image: Label                      # 游戏结束时显示的图片
     block_size: int                             # 一个方块的大小(像素px)
     all_rows: int                               # 所有的行
     all_columns: int                            # 所有的列
@@ -60,8 +60,8 @@ class Tetris(QWidget):
     painter: QPainter                           # 画笔
     font: QFont                                 # 字体
 
-    def __init__(self, parent=None) -> None:
-        super(Tetris, self).__init__(parent)
+    def __init__(self, *args, **kwargs) -> None:
+        super(Tetris, self).__init__(*args, **kwargs)
 
         self.screen_width = 900
         self.screen_height = 800

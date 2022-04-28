@@ -1,6 +1,13 @@
 <h2 align="center">PyQt5-Tetris</h2>
 
-
+<p align="center">
+    <a href="https://img.shields.io/badge/Python-v3.8.2-blue">
+        <img src="https://img.shields.io/badge/Python-v3.8.2-blue" alt="Python 3.8.2" />
+    </a>
+    <a href="https://img.shields.io/github/license/karbob666/PyQt5-Tetris">
+        <img src="https://img.shields.io/github/license/karbob666/PyQt5-Tetris" alt="GPL-3.0" />
+    </a>
+</p>
 
 ##  💻 开发环境
 
@@ -19,11 +26,12 @@ pip install PyQt5
 - 🎵 播放音乐
 - ⏸︎ 暂停游戏
 - 🎸 消除方块的音效
+- 🖱️ 窗口自由拖拽
 
 ## ✅ Todo
 
 - 📄 游戏存档
-- 🖱️ 窗口拖拽
+- ⚙️ 添加设置
 
 
 ## ⌨️ 使用方法
