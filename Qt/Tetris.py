@@ -9,7 +9,8 @@
 import random
 from typing import Dict, Any, List
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel
+from Qt.Base import Button, Label
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, QRect, QTimer, QUrl
 from PyQt5.QtGui import (
     QPixmap,
@@ -20,7 +21,8 @@ from PyQt5.QtGui import (
     QFontDatabase,
     QPaintEvent,
     QKeyEvent,
-    QKeySequence
+    QKeySequence,
+    QFocusEvent,
 )
 
 
@@ -31,10 +33,10 @@ class Tetris(QWidget):
     is_game_start: bool                         # 游戏是否开始
     is_game_over: bool                          # 游戏是否结束
     is_pause: bool                              # 游戏是否暂停
-    btn_pause: QPushButton                      # 暂停游戏按钮
-    btn_resume: QPushButton                     # 继续游戏按钮
-    btn_restart: QPushButton                    # 重新开始游戏按钮
-    game_over_image: QLabel                     # 游戏结束时显示的图片
+    btn_pause: Button                      # 暂停游戏按钮
+    btn_resume: Button                     # 继续游戏按钮
+    btn_restart: Button                    # 重新开始游戏按钮
+    game_over_image: Label                     # 游戏结束时显示的图片
     block_size: int                             # 一个方块的大小(像素px)
     all_rows: int                               # 所有的行
     all_columns: int                            # 所有的列
@@ -66,7 +68,7 @@ class Tetris(QWidget):
         self.is_game_start = False
         self.is_game_over = True
         self.is_pause = True
-        self.setFocusPolicy(Qt.StrongFocus)         # 设置焦点, 监听键盘
+        # self.setFocusPolicy(Qt.StrongFocus)         # 设置焦点, 监听键盘
         self.resize(self.screen_width, self.screen_height)
 
         self.init_button()
@@ -75,7 +77,7 @@ class Tetris(QWidget):
     def init_button(self) -> None:
         """初始化重新开始游戏的按钮"""
         # 暂停游戏按钮
-        self.btn_pause = QPushButton(self)
+        self.btn_pause = Button(self)
         self.btn_pause.setObjectName("pauseButton")
         self.btn_pause.setShortcut(QKeySequence(Qt.Key_P))
         self.btn_pause.setToolTip("暂停")  # 悬停在按钮上的提示->暂停
@@ -84,7 +86,7 @@ class Tetris(QWidget):
         self.btn_pause.clicked.connect(self.slot_clicked_pause)
 
         # 继续游戏按钮
-        self.btn_resume = QPushButton(self)
+        self.btn_resume = Button(self)
         self.btn_resume.setObjectName("resumeButton")
         self.btn_resume.setToolTip("继续")  # 悬停在按钮上的提示->继续
         self.btn_resume.move(self.screen_width - 210, 5)  # 按钮的位置
@@ -92,7 +94,7 @@ class Tetris(QWidget):
         self.btn_resume.clicked.connect(self.slot_clicked_resume)
 
         # 重新开始游戏按钮
-        self.btn_restart = QPushButton(self)
+        self.btn_restart = Button(self)
         self.btn_restart.setObjectName("restartButton")
         self.btn_restart.move(self.screen_width // 2 - 200, self.screen_height // 2 - 50)
         self.btn_restart.hide()       # 默认隐藏
@@ -100,7 +102,7 @@ class Tetris(QWidget):
 
     def init_image(self) -> None:
         """初始化游戏结束的图片"""
-        self.game_over_image = QLabel(self)
+        self.game_over_image = Label(self)
         self.game_over_image.setPixmap(QPixmap("./icons/game_over.png"))
         self.game_over_image.move(self.screen_width // 24, self.screen_height // 4)
         self.game_over_image.hide()   # 默认隐藏
@@ -278,10 +280,15 @@ class Tetris(QWidget):
         self.is_game_start = True
         self.is_game_over = False
         self.is_pause = False
+        # 获取焦点
+        self.setFocus()
+        # 显示暂停按钮
         self.btn_pause.show()
+        # 初始化
         self.init_settings()
         self.init_font()
         self.init_timer()
+        # 获取方块
         self.next_block_dict = self.get_block()
         self.get_current_block()
 
@@ -339,6 +346,12 @@ class Tetris(QWidget):
             self.painter.drawText(self.screen_width - 250, 150, "Score: %d" % self.score)
 
         self.painter.end()    # 结束重绘
+
+    def focusOutEvent(self, event: QFocusEvent) -> None:
+        """焦点丢失事件"""
+        # 如果游戏开始, 使焦点一直在这个窗口上
+        if self.is_game_start is True:
+            self.setFocus()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         """重写keyPressEvent"""

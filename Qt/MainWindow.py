@@ -7,7 +7,8 @@
 """
 from Qt.Player import Player
 from Qt.Tetris import Tetris
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel
+from Qt.Base import Button, Label
+from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QPixmap, QIcon
 
@@ -17,17 +18,17 @@ class MainWindow(QWidget):
     screen_width: int           # 窗口的宽度
     screen_height: int          # 窗口的高度
     pixmap: QPixmap             # 临时存储图片路径
-    background: QLabel          # 开始时的背景图片
+    background: Label          # 开始时的背景图片
     timer: QTimer               # 定时器
 
     # 按钮
-    btn_close: QPushButton            # 关闭窗口按钮
-    btn_minimize: QPushButton         # 最小化窗口按钮
-    btn_start: QPushButton            # 开始游戏按钮
-    btn_mute: QPushButton             # 静音按钮
-    btn_cancel_mute: QPushButton      # 取消静音按钮
-    btn_next_music: QPushButton       # 下一首音乐按钮
-    btn_previous_music: QPushButton   # 上一首音乐按钮
+    btn_close: Button            # 关闭窗口按钮
+    btn_minimize: Button         # 最小化窗口按钮
+    btn_start: Button            # 开始游戏按钮
+    btn_mute: Button             # 静音按钮
+    btn_cancel_mute: Button      # 取消静音按钮
+    btn_next_music: Button       # 下一首音乐按钮
+    btn_previous_music: Button   # 上一首音乐按钮
 
     button_size = 30 + 5
 
@@ -54,7 +55,7 @@ class MainWindow(QWidget):
     def init_ui(self) -> None:
         """绘制背景图片"""
         # 第一张背景图片
-        self.background = QLabel(self)
+        self.background = Label(self)
         self.pixmap = QPixmap("./icons/background.png")
         self.background.setPixmap(self.pixmap)
 
@@ -66,7 +67,7 @@ class MainWindow(QWidget):
             fp.close()
 
         # 右上角的关闭按钮
-        self.btn_close = QPushButton(self)
+        self.btn_close = Button(self)
         self.btn_close.setObjectName("closeButton")
         self.btn_close.setShortcut("ESC")      # 按钮热键esc
         self.btn_close.setToolTip("关闭")        # 悬停在按钮上的提示->关闭
@@ -74,40 +75,40 @@ class MainWindow(QWidget):
         self.btn_close.clicked.connect(self.close)
 
         # 右上角的最小化按钮
-        self.btn_minimize = QPushButton(self)
+        self.btn_minimize = Button(self)
         self.btn_minimize.setObjectName("minimizeButton")
         self.btn_minimize.setToolTip("最小化")        # 悬停在按钮上的提示->最小化
         self.btn_minimize.move(self.screen_width - 2 * self.button_size, 5)     # 按钮的位置
         self.btn_minimize.clicked.connect(self.showMinimized)
 
         # 开始游戏的按钮
-        self.btn_start = QPushButton(self)
+        self.btn_start = Button(self)
         self.btn_start.setObjectName("startButton")
         self.btn_start.move(self.screen_width // 2 - 100, self.screen_height // 2 - 50)     # 按钮的位置
         self.btn_start.clicked.connect(self.slot_clicked_start)
 
         # 静音按钮
-        self.btn_mute = QPushButton(self)
+        self.btn_mute = Button(self)
         self.btn_mute.setObjectName("muteButton")
         self.btn_mute.move(self.screen_width - 3 * self.button_size, 5)   # 按钮的位置
         self.btn_mute.hide()  # 默认隐藏
         self.btn_mute.clicked.connect(self.slot_clicked_mute)
 
         # 取消静音按钮
-        self.btn_cancel_mute = QPushButton(self)
+        self.btn_cancel_mute = Button(self)
         self.btn_cancel_mute.setObjectName("cancelMuteButton")
         self.btn_cancel_mute.move(self.screen_width - 3 * self.button_size, 5)     # 按钮的位置
         self.btn_cancel_mute.clicked.connect(self.slot_clicked_cancel_mute)
 
         # 下一首音乐按钮
-        self.btn_next_music = QPushButton(self)
+        self.btn_next_music = Button(self)
         self.btn_next_music.setObjectName("nextMusicButton")
         self.btn_next_music.setToolTip("下一首")        # 悬停在按钮上的提示->下一首
         self.btn_next_music.move(self.screen_width - 4 * self.button_size, 5)  # 按钮的位置
         self.btn_next_music.clicked.connect(self.player.next_music)
 
         # 上一首音乐按钮
-        self.btn_previous_music = QPushButton(self)
+        self.btn_previous_music = Button(self)
         self.btn_previous_music.setObjectName("previousMusicButton")
         self.btn_previous_music.setToolTip("上一首")        # 悬停在按钮上的提示->上一首
         self.btn_previous_music.move(self.screen_width - 5 * self.button_size, 5)    # 按钮的位置
