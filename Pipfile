@@ -3,10 +3,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+[scripts]
+start = "python main.py"
+build = "pyinstaller --clean main.spec"
+
 [packages]
 pyqt5 = "*"
 
 [dev-packages]
+pyinstaller = "*"
 
 [requires]
 python_version = "3.8"
