@@ -44,7 +44,7 @@ git clone https://github.com/karbob666/PyQt5-Tetris.git
 cd PyQt5-Tetris
 
 # 使用pipenv安装依赖
-pipenv install
+pipenv sync
 
 # 运行
 pipenv run start
