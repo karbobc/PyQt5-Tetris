@@ -155,13 +155,13 @@ class MainWindow(QWidget):
     def mousePressEvent(self, event: QMouseEvent) -> None:
         """鼠标按下事件"""
         self.is_mouse_press = True
-        self.mouse_press_point = event.globalPos() - self.pos()
+        self.mouse_point = event.globalPos() - self.pos()
 
     def mouseMoveEvent(self, event: QMouseEvent) -> None:
         """鼠标移动事件"""
         if self.is_mouse_press:
             # 相当于原来的位置 + (鼠标移动位置 - 鼠标按下位置)
-            self.move(event.globalPos() - self.mouse_press_point)
+            self.move(event.globalPos() - self.mouse_point)
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:
         """鼠标释放事件"""
