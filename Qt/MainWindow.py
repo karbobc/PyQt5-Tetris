@@ -5,6 +5,8 @@
 ...@author: Karbob
 ...@date: 2020-11-04
 """
+import os
+import pickle
 from Qt.Player import Player
 from Qt.Tetris import Tetris
 from Qt.Base import Button, Label
@@ -37,8 +39,8 @@ class MainWindow(QWidget):
     def __init__(self, *args, **kwargs) -> None:
         super(MainWindow, self).__init__(*args, **kwargs)
 
+        self.game = self.load_archive_data()
         self.player = Player(self)
-        self.game = Tetris(self)
 
         self.screen_width = 900
         self.screen_height = 800
@@ -71,15 +73,15 @@ class MainWindow(QWidget):
         # 右上角的关闭按钮
         self.btn_close = Button(self)
         self.btn_close.setObjectName("closeButton")
-        self.btn_close.setShortcut("ESC")      # 按钮热键esc
-        self.btn_close.setToolTip("关闭")        # 悬停在按钮上的提示->关闭
+        self.btn_close.setShortcut("ESC")                                     # 按钮热键esc
+        self.btn_close.setToolTip("关闭")                                      # 悬停在按钮上的提示->关闭
         self.btn_close.move(self.screen_width - self.button_size, 5)          # 按钮的位置
-        self.btn_close.clicked.connect(self.close)
+        self.btn_close.clicked.connect(self.slot_clicked_close)
 
         # 右上角的最小化按钮
         self.btn_minimize = Button(self)
         self.btn_minimize.setObjectName("minimizeButton")
-        self.btn_minimize.setToolTip("最小化")        # 悬停在按钮上的提示->最小化
+        self.btn_minimize.setToolTip("最小化")                                   # 悬停在按钮上的提示->最小化
         self.btn_minimize.move(self.screen_width - 2 * self.button_size, 5)     # 按钮的位置
         self.btn_minimize.clicked.connect(self.showMinimized)
 
@@ -92,7 +94,7 @@ class MainWindow(QWidget):
         # 静音按钮
         self.btn_mute = Button(self)
         self.btn_mute.setObjectName("muteButton")
-        self.btn_mute.move(self.screen_width - 3 * self.button_size, 5)   # 按钮的位置
+        self.btn_mute.move(self.screen_width - 3 * self.button_size, 5)             # 按钮的位置
         self.btn_mute.hide()  # 默认隐藏
         self.btn_mute.clicked.connect(self.slot_clicked_mute)
 
@@ -106,7 +108,7 @@ class MainWindow(QWidget):
         self.btn_next_music = Button(self)
         self.btn_next_music.setObjectName("nextMusicButton")
         self.btn_next_music.setToolTip("下一首")        # 悬停在按钮上的提示->下一首
-        self.btn_next_music.move(self.screen_width - 4 * self.button_size, 5)  # 按钮的位置
+        self.btn_next_music.move(self.screen_width - 4 * self.button_size, 5)       # 按钮的位置
         self.btn_next_music.clicked.connect(self.player.next_music)
 
         # 上一首音乐按钮
@@ -116,29 +118,24 @@ class MainWindow(QWidget):
         self.btn_previous_music.move(self.screen_width - 5 * self.button_size, 5)    # 按钮的位置
         self.btn_previous_music.clicked.connect(self.player.previous_music)
 
-    def set_timer(self) -> None:
-        """设置Timer, 每隔500ms检测游戏是否结束"""
-        self.timer = QTimer()
-        interval = 500
-        self.timer.start(interval)
-        self.timer.timeout.connect(self.game_over)
-
-    def game_over(self) -> None:
-        """判断游戏是否结束"""
-        if self.game.is_game_over is True:
-            self.background.show()
-            self.btn_start.show()
-            self.timer.disconnect()
-            self.game.is_game_start = False
-            self.game.btn_restart.hide()
-            self.game.game_over_image.hide()
+        # 重新开始游戏按钮
+        self.game.btn_restart.clicked.connect(self.slot_clicked_restart)
 
     def slot_clicked_start(self) -> None:
         """点击开始游戏按钮的信号槽"""
         self.btn_start.hide()
         self.background.hide()
         self.game.start()
-        self.set_timer()
+
+    def slot_clicked_restart(self) -> None:
+        """点击重新开始游戏按钮的信号槽"""
+        self.game.is_game_start = False
+        self.game.btn_pause.hide()
+        self.game.init_data()
+        self.game.btn_restart.hide()
+        self.game.game_over_image.hide()
+        self.btn_start.show()
+        self.background.show()
 
     def slot_clicked_mute(self) -> None:
         """点击静音按钮的信号槽"""
@@ -151,6 +148,16 @@ class MainWindow(QWidget):
         self.player.mute()
         self.btn_cancel_mute.hide()
         self.btn_mute.show()
+
+    def slot_clicked_close(self) -> None:
+        """点击关闭窗口按钮"""
+        if self.game.is_game_start and not self.game.is_game_over:
+            # 先暂停游戏
+            self.game.slot_clicked_pause()
+            self.game.is_game_start = False
+            # 存档
+            self.save_archive_data()
+        self.close()
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         """鼠标按下事件"""
@@ -166,3 +173,42 @@ class MainWindow(QWidget):
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:
         """鼠标释放事件"""
         self.is_mouse_press = False
+
+    def save_archive_data(self) -> None:
+        """保存存档"""
+        data = {
+            "is_game_start": self.game.is_game_start,
+            "is_pause": self.game.is_pause,
+            "block_list": self.game.block_list,
+            "current_row": self.game.current_row,
+            "current_column": self.game.current_column,
+            "current_block_dict": self.game.current_block_dict,
+            "next_block_dict": self.game.next_block_dict,
+            "score": self.game.score,
+        }
+        with open("data.pkl", "wb") as fp:
+            pickle.dump(data, fp)
+            fp.close()
+
+    def load_archive_data(self) -> Tetris:
+        """读取存档"""
+        game = Tetris(self)
+        try:
+            # 读取数据
+            with open("data.pkl", "rb") as fp:
+                data = pickle.load(fp)
+                fp.close()
+            # 恢复数据
+            game.is_game_start = data["is_game_start"]
+            game.is_pause = data["is_pause"]
+            game.block_list = data["block_list"]
+            game.current_row = data["current_row"]
+            game.current_column = data["current_column"]
+            game.current_block_dict = data["current_block_dict"]
+            game.next_block_dict = data["next_block_dict"]
+            game.score = data["score"]
+            # 删除文件
+            os.remove("data.pkl")
+        except:
+            pass
+        return game
