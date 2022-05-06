@@ -209,6 +209,6 @@ class MainWindow(QWidget):
             game.score = data["score"]
             # 删除文件
             os.remove("data.pkl")
-        except:
+        except Exception:
             pass
         return game

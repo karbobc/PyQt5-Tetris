@@ -313,7 +313,7 @@ class Tetris(QWidget):
             self.drop_timer.disconnect()
             self.update_timer.disconnect()
             self.remove_block_timer.disconnect()
-        except:
+        except Exception:
             pass
         self.game_over_image.show()
         self.btn_restart.show()
